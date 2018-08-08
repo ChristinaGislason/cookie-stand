@@ -2,7 +2,7 @@
 
 console.log('js loaded');
 
-//NOTES:
+//NOTES:__
 //[Try structuring in this order]
 //1. global variables
 //2. setup a constructor
@@ -72,7 +72,7 @@ function getTotalCookiesPerDay() {
   }
   return totalCookiesPerDay;
 }
-
+//setup constructor function
 function Store(name, minCustPerHr, maxCustPerHr, avgCookiePerCust) {
   this.name = name;
   this.minCustPerHr = minCustPerHr;
@@ -164,6 +164,7 @@ function addTableHeaderRow() {
 // 1. add table header row
 addTableHeaderRow();
 
+//create store instances
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
 pikeStore.render();
 var seatacStore = new Store('SeaTac Airport', 3, 24, 1.2);
@@ -174,3 +175,4 @@ var capitolhillStore = new Store('Capitol Hill', 20, 38, 2.3);
 capitolhillStore.render();
 var alkiStore = new Store('Alki', 2, 16, 4.6);
 alkiStore.render();
+

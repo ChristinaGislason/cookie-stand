@@ -34,8 +34,8 @@
     <form id="storeForm">
       <div>
         <label for="storeForm">Enter store name:</label>
-        <input id="storeForm" name="name" type="text" min="2" max="15" />
-      </div>
+        <input id="storeForm" name="name" type="text" min="2" max="15" required/>
+      </div> 
       <fieldset>
         <label for="minCustPerHr">Enter min. customers/hr:</label>
         <input id="minCustPerHr" type="text" min="1" max="1000" required/>
@@ -43,7 +43,7 @@
         <input id="maxCustPerHr" type="text" min="1" max="1000" required/>
         <label for="avgCookiePerCust">Enter avg. cookies/customer:</label>
         <input id="avgCookiePerCust" type="number" min="1" max="1000" required/>
-      </fieldset>
+      </fieldset> 
       <input type="submit" value="Add Store" />
     </form>
   </section>

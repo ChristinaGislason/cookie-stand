@@ -1,6 +1,7 @@
 'use strict';
 
 console.log('js loaded');
+
 var hours = [
   '',
   '6:00am',
@@ -21,15 +22,14 @@ var hours = [
 ];
 
 var allStores = [];
+
 //NOTES:__
 //[Try structuring in this order]
-//1. global variables 
-//2. setup a constructor 
+//1. global variables
+//2. setup a constructor
 //3. set up instance methods that will attach to the constructor /DONE
 //4. actually attach the instance methods to the prototype
 //5. runner code: actually do stuff
-
-//Setup DOM for printing cookie sales per hour and total cookie sales
 
 //Setup constructor function
 function Store(name, minCustPerHr, maxCustPerHr, avgCookiePerCust) {
@@ -42,30 +42,22 @@ function Store(name, minCustPerHr, maxCustPerHr, avgCookiePerCust) {
   allStores.push(this);
 }
 
-//Attach instance method to prototype
+//Attach method to prototype
 Store.prototype.getRandomCustPerHr = getRandomCustPerHr;
-Store.prototype.generateTotalCookieSalesPerHr = getTotalCookieSalesPerHr;
-Store.prototype.generateTotalCookiesPerDay = getTotalCookiesPerDay;
+Store.prototype.getTotalCookieSalesPerHr = getTotalCookieSalesPerHr;
+Store.prototype.getTotalCookiesPerDay = getTotalCookiesPerDay;
 Store.prototype.render = function() {
-
   // 1. add the name of the store to a new row in the tbody
-  // grab the tbody and assign the node to a variable
   var tbody = document.querySelector('tbody');
-  // create the new row node
   var tr = document.createElement('tr');
-  // append the row node to the tbody
   tbody.appendChild(tr);
-  // create a new td node to go in the tr
   var nameTd = document.createElement('td');
-  // set the text content of the new td node to the name of the store
 
   nameTd.textContent = this.name;
-  // append the td node to the new row
   tr.appendChild(nameTd);
 
   // 2. add all of the hourly cookie sales values to the same row
-
-  this.generateTotalCookieSalesPerHr();
+  this.getTotalCookieSalesPerHr();
   for (var i = 0; i < this.avgCookieSalesPerHr.length; i++) {
     var hourlyCookieSalesTd = document.createElement('td');
     // create a new td node to go in the tr
@@ -75,22 +67,21 @@ Store.prototype.render = function() {
     // append the td node to the new row
     tr.appendChild(hourlyCookieSalesTd);
   }
- 
+
   // 3. add the daily location total to the same row
 
   // create a new td node to go in the tr
   var dailyLocationTotalTd = document.createElement('td');
   // set the text content of the new td node to the name of the store
-  this.generateTotalCookieSalesPerHr();
-  dailyLocationTotalTd.textContent = this.generateTotalCookiesPerDay();
+  this.getTotalCookieSalesPerHr();
+  dailyLocationTotalTd.textContent = this.getTotalCookiesPerDay();
   // append the td node to the new row
   tr.appendChild(dailyLocationTotalTd);
 };
 
-
 //Generate random number of customers per hour
-function getRandomIntInRange(low, high) {
-  return Math.random() * (high - low) + low;
+function getRandomIntInRange(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
 function getRandomCustPerHr() {
@@ -117,7 +108,7 @@ function getTotalCookiesPerDay() {
 function addTableHeaderRow() {
   // select table from html using dom method
   var tableHeaderRow = document.querySelector('thead tr');
- 
+
   // grab each item of the array....use for loop
   for (var i = 0; i < hours.length; i++) {
     // create the td node
@@ -131,22 +122,21 @@ function addTableHeaderRow() {
 
 addTableHeaderRow();
 
+// function addTableFooterRow() {
+//   var table = document.querySelector('table');
+//   var tfoot = document.createElement('tfoot');
+//   var footerRow = document.createElement('tr');
+//   totalsTD.textContent = this.
+//       for (var i = 0; i < hours.length; i++) {
+//         for (var j = 0; j < .length; j++)
 
+//       }
 
-function addTableFooterRow() {
-  var table = document.querySelector('table');
-  var tfoot = document.createElement('tfoot');
-  var footerRow = document.createElement('tr')
-  //totalsTD.textContent = this.
-
-  var totalTd = document.createElement('td');
-  footerRow.appendChild(totalTd);
-  tfoot.appendChild(footerRow);
-  table.appendChild(tfoot);
-
-
-}
-
+//   var totalTd = document.createElement('td');
+//   footerRow.appendChild(totalTd);
+//   tfoot.appendChild(footerRow);
+//   table.appendChild(tfoot);
+// }
 //create store instances
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
 pikeStore.render();
@@ -159,47 +149,16 @@ capitolhillStore.render();
 var alkiStore = new Store('Alki', 2, 16, 4.6);
 alkiStore.render();
 
-function printSalesToPage(id, totalCookieSalesPerHr, totalCookieSalesPerDay) {
-  var hours = [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm'
-  ];
-  console.log('total cookie sales' + totalCookieSalesPerHr.length);
-  //take array out of function
-  //one function generate header; one function store data five timesdom
-
-  for (var i = 0; i < totalCookieSalesPerHr.length; i++) {
-    var li = document.createElement('li');
-    var hour = hours[i];
-    li.textContent = hour + ' : ' + totalCookieSalesPerHr[i];
-    document.getElementById(id).appendChild(li);
-  }
-  li = document.createElement('li');
-  li.textContent = 'Total Cookies' + ' : ' + totalCookieSalesPerDay;
-  document.getElementById(id).appendChild(li);
-}
-
-
-
 // when a user submits the form, display that information in the table
 var formEl = document.getElementById('storeForm');
 formEl.addEventListener('submit', function(e) {
   e.preventDefault();
   console.log('Form submitted');
-  var storeCreatedFromForm = new Store(e.target.name.value, e.target.minCustPerHr.value, e.target.maxCustPerHr.value, e.target.avgCookiePerCust.value);
-  storeCreatedFromForm.getTotalCookieSalesPerHr();
+  var storeCreatedFromForm = new Store(
+    e.target.name.value,
+    e.target.minCustPerHr.value,
+    e.target.maxCustPerHr.value,
+    e.target.avgCookiePerCust.value
+  );
+  storeCreatedFromForm.render();
 });
-
-

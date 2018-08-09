@@ -73,7 +73,6 @@ Store.prototype.render = function() {
   // create a new td node to go in the tr
   var dailyLocationTotalTd = document.createElement('td');
   // set the text content of the new td node to the name of the store
-  this.getTotalCookieSalesPerHr();
   dailyLocationTotalTd.textContent = this.getTotalCookiesPerDay();
   // append the td node to the new row
   tr.appendChild(dailyLocationTotalTd);
@@ -127,10 +126,17 @@ function addTableFooterRow(allStoresCookiesSalesPerHr) {
   var table = document.querySelector('table');
   var tfoot = document.createElement('tfoot');
   var footerRow = document.createElement('tr');
+  var totalsTd = document.createElement('td');
+  totalsTd.textContent = 'Total Hourly Sales';
+  footerRow.appendChild(totalsTd);
+
+  var totalSales = 0;
+
   for (var i = 0; i < allStoresCookiesSalesPerHr[0].length; i++) {
     var total = 0;
-    for (var j = 0; j < allStoresCookiesSalesPerHr.length; j++){
+    for (var j = 0; j < allStoresCookiesSalesPerHr.length; j++) {
       total += allStoresCookiesSalesPerHr[j][i];
+      totalSales += allStoresCookiesSalesPerHr[j][i];
     }
     var totalTd = document.createElement('td');
     totalTd.textContent = total;
@@ -138,6 +144,10 @@ function addTableFooterRow(allStoresCookiesSalesPerHr) {
   }
   table.appendChild(tfoot);
   tfoot.appendChild(footerRow);
+
+  var lastTd = document.createElement('td');
+  lastTd.textContent = totalSales;
+  footerRow.appendChild(lastTd);
 }
 
 //create store instances
@@ -154,23 +164,34 @@ alkiStore.render();
 
 // create array of store arrays containing values for total cookie sales per hour
 addTableFooterRow([
-  pikeStore.getTotalCookieSalesPerHr(),
-  seatacStore.getTotalCookieSalesPerHr(),
-  seattlecentreStore.getTotalCookieSalesPerHr(),
-  capitolhillStore.getTotalCookieSalesPerHr(),
-  alkiStore.getTotalCookieSalesPerHr()
+  pikeStore.avgCookieSalesPerHr,
+  seatacStore.avgCookieSalesPerHr,
+  seattlecentreStore.avgCookieSalesPerHr,
+  capitolhillStore.avgCookieSalesPerHr,
+  alkiStore.avgCookieSalesPerHr
 ]);
 
 // when a user submits the form, display that information in the table
 var formEl = document.getElementById('storeForm');
 formEl.addEventListener('submit', function(e) {
-  e.preventDefault();
+  e.preventDefault(); //prevents page from reloading after submit
   console.log('Form submitted');
   var storeCreatedFromForm = new Store(
     e.target.name.value,
-    e.target.minCustPerHr.value,
-    e.target.maxCustPerHr.value,
-    e.target.avgCookiePerCust.value
+    Number(e.target.minCustPerHr.value),
+    Number(e.target.maxCustPerHr.value),
+    Number(e.target.avgCookiePerCust.value)
   );
   storeCreatedFromForm.render();
+
+  var storeAdditionArr = [];
+  for (var i = 0; i < allStores.length; i++) {
+    storeAdditionArr.push(allStores[i].avgCookieSalesPerHr);
+  }
+
+  var table = document.getElementById('table');
+  table.deleteTFoot();
+
+  addTableFooterRow(storeAdditionArr);
 });
+

@@ -2,77 +2,36 @@
 
 console.log('js loaded');
 
+var hours = [
+  '',
+  '6:00am',
+  '7:00am',
+  '8:00am',
+  '9:00am',
+  '10:00am',
+  '11:00am',
+  '12:00pm',
+  '1:00pm',
+  '2:00pm',
+  '3:00pm',
+  '4:00pm',
+  '5:00pm',
+  '6:00pm',
+  '7:00pm',
+  'Daily Location Total'
+];
+
+var allStores = [];
+
 //NOTES:__
 //[Try structuring in this order]
 //1. global variables
 //2. setup a constructor
-//3. set up instance methods that I will attach to the constructor
+//3. set up instance methods that will attach to the constructor /DONE
 //4. actually attach the instance methods to the prototype
 //5. runner code: actually do stuff
 
-//Setup DOM for printing cookie sales per hour and total cookie sales
-
-function printSalesToPage(id, totalCookieSalesPerHr, totalCookieSalesPerDay) {
-  var hours = [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm'
-  ];
-  console.log('total cookie sales' + totalCookieSalesPerHr.length);
-  //take array out of function
-  //one function generate header; one function store data five timesdom
-
-  for (var i = 0; i < totalCookieSalesPerHr.length; i++) {
-    var li = document.createElement('li');
-    var hour = hours[i];
-    li.textContent = hour + ' : ' + totalCookieSalesPerHr[i];
-    document.getElementById(id).appendChild(li);
-  }
-  li = document.createElement('li');
-  li.textContent = 'Total Cookies' + ' : ' + totalCookieSalesPerDay;
-  document.getElementById(id).appendChild(li);
-}
-
-//Generate random number of customers per hour
-
-//Replace object literals with a single construction function
-
-function getRandomIntInRange(low, high) {
-  return Math.random() * (high - low) + low;
-}
-
-function getRandomCustPerHr() {
-  return getRandomIntInRange(this.minCustPerHr, this.maxCustPerHr);
-}
-
-function getTotalCookieSalesPerHr() {
-  for (var i = 0; i < this.totalHrs; i++) {
-    this.avgCookieSalesPerHr.push(
-      Math.floor(this.avgCookiePerCust * this.getRandomCustPerHr())
-    );
-  }
-  return this.avgCookieSalesPerHr;
-}
-
-function getTotalCookiesPerDay() {
-  var totalCookiesPerDay = 0;
-  for (var i = 0; i < this.avgCookieSalesPerHr.length; i++) {
-    totalCookiesPerDay += this.avgCookieSalesPerHr[i];
-  }
-  return totalCookiesPerDay;
-}
-//setup constructor function
+//Setup constructor function
 function Store(name, minCustPerHr, maxCustPerHr, avgCookiePerCust) {
   this.name = name;
   this.minCustPerHr = minCustPerHr;
@@ -80,33 +39,25 @@ function Store(name, minCustPerHr, maxCustPerHr, avgCookiePerCust) {
   this.avgCookiePerCust = avgCookiePerCust;
   this.totalHrs = 14;
   this.avgCookieSalesPerHr = [];
+  allStores.push(this);
 }
 
+//Attach method to prototype
 Store.prototype.getRandomCustPerHr = getRandomCustPerHr;
-Store.prototype.generateTotalCookieSalesPerHr = getTotalCookieSalesPerHr;
-Store.prototype.generateTotalCookiesPerDay = getTotalCookiesPerDay;
+Store.prototype.getTotalCookieSalesPerHr = getTotalCookieSalesPerHr;
+Store.prototype.getTotalCookiesPerDay = getTotalCookiesPerDay;
 Store.prototype.render = function() {
-  //insert code to add to the Table
-  // creates and appends its row to the table
-
   // 1. add the name of the store to a new row in the tbody
-  // grab the tbody and assign the node to a variable
   var tbody = document.querySelector('tbody');
-  // create the new row node
   var tr = document.createElement('tr');
-  // append the row node to the tbody
   tbody.appendChild(tr);
-
-  // create a new td node to go in the tr
   var nameTd = document.createElement('td');
-  // set the text content of the new td node to the name of the store
+
   nameTd.textContent = this.name;
-  // append the td node to the new row
   tr.appendChild(nameTd);
 
   // 2. add all of the hourly cookie sales values to the same row
-
-  this.generateTotalCookieSalesPerHr();
+  this.getTotalCookieSalesPerHr();
   for (var i = 0; i < this.avgCookieSalesPerHr.length; i++) {
     var hourlyCookieSalesTd = document.createElement('td');
     // create a new td node to go in the tr
@@ -122,33 +73,43 @@ Store.prototype.render = function() {
   // create a new td node to go in the tr
   var dailyLocationTotalTd = document.createElement('td');
   // set the text content of the new td node to the name of the store
-  this.generateTotalCookieSalesPerHr();
-  dailyLocationTotalTd.textContent = this.generateTotalCookiesPerDay();
+  this.getTotalCookieSalesPerHr();
+  dailyLocationTotalTd.textContent = this.getTotalCookiesPerDay();
   // append the td node to the new row
   tr.appendChild(dailyLocationTotalTd);
 };
 
+//Generate random number of customers per hour
+function getRandomIntInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function getRandomCustPerHr() {
+  return getRandomIntInRange(this.minCustPerHr, this.maxCustPerHr);
+}
+
+function getTotalCookieSalesPerHr() {
+  this.avgCookieSalesPerHr = [];
+  for (var i = 0; i < this.totalHrs; i++) {
+    this.avgCookieSalesPerHr.push(
+      Math.floor(this.avgCookiePerCust * this.getRandomCustPerHr())
+    );
+  }
+  return this.avgCookieSalesPerHr;
+}
+
+function getTotalCookiesPerDay() {
+  var totalCookiesPerDay = 0;
+  for (var i = 0; i < this.avgCookieSalesPerHr.length; i++) {
+    totalCookiesPerDay += this.avgCookieSalesPerHr[i];
+  }
+  return totalCookiesPerDay;
+}
+
 function addTableHeaderRow() {
   // select table from html using dom method
   var tableHeaderRow = document.querySelector('thead tr');
-  var hours = [
-    '',
-    '6:00am',
-    '7:00am',
-    '8:00am',
-    '9:00am',
-    '10:00am',
-    '11:00am',
-    '12:00pm',
-    '1:00pm',
-    '2:00pm',
-    '3:00pm',
-    '4:00pm',
-    '5:00pm',
-    '6:00pm',
-    '7:00pm',
-    'Daily Location Total'
-  ];
+
   // grab each item of the array....use for loop
   for (var i = 0; i < hours.length; i++) {
     // create the td node
@@ -160,9 +121,24 @@ function addTableHeaderRow() {
   }
 }
 
-// Create table
-// 1. add table header row
 addTableHeaderRow();
+
+function addTableFooterRow(allStoresCookiesSalesPerHr) {
+  var table = document.querySelector('table');
+  var tfoot = document.createElement('tfoot');
+  var footerRow = document.createElement('tr');
+  for (var i = 0; i < allStoresCookiesSalesPerHr[0].length; i++) {
+    var total = 0;
+    for (var j = 0; j < allStoresCookiesSalesPerHr.length; j++){
+      total += allStoresCookiesSalesPerHr[j][i];
+    }
+    var totalTd = document.createElement('td');
+    totalTd.textContent = total;
+    footerRow.appendChild(totalTd);
+  }
+  table.appendChild(tfoot);
+  tfoot.appendChild(footerRow);
+}
 
 //create store instances
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
@@ -176,3 +152,25 @@ capitolhillStore.render();
 var alkiStore = new Store('Alki', 2, 16, 4.6);
 alkiStore.render();
 
+// create array of store arrays containing values for total cookie sales per hour
+addTableFooterRow([
+  pikeStore.getTotalCookieSalesPerHr(),
+  seatacStore.getTotalCookieSalesPerHr(),
+  seattlecentreStore.getTotalCookieSalesPerHr(),
+  capitolhillStore.getTotalCookieSalesPerHr(),
+  alkiStore.getTotalCookieSalesPerHr()
+]);
+
+// when a user submits the form, display that information in the table
+var formEl = document.getElementById('storeForm');
+formEl.addEventListener('submit', function(e) {
+  e.preventDefault();
+  console.log('Form submitted');
+  var storeCreatedFromForm = new Store(
+    e.target.name.value,
+    e.target.minCustPerHr.value,
+    e.target.maxCustPerHr.value,
+    e.target.avgCookiePerCust.value
+  );
+  storeCreatedFromForm.render();
+});

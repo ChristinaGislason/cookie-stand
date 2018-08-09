@@ -122,21 +122,26 @@ function addTableHeaderRow() {
 
 addTableHeaderRow();
 
-// function addTableFooterRow() {
-//   var table = document.querySelector('table');
-//   var tfoot = document.createElement('tfoot');
-//   var footerRow = document.createElement('tr');
-//   totalsTD.textContent = this.
-//       for (var i = 0; i < hours.length; i++) {
-//         for (var j = 0; j < .length; j++)
+function addTableFooterRow(allStoreCookiesSalesPerHr) {
+  var table = document.querySelector('table');
+  var tfoot = document.createElement('tfoot');
+  var footerRow = document.createElement('tr');
+  totalsTD.textContent = this.
+  for (var i = 0; i < allStoreCookiesSalesPerHr.length; i++) {
+    var storeCookieSalesPerHr = allStoreCookiesSalesPerHr[i];
+    var total = 0;
+    for (var j = 0; j < .length; j++){
+      
+    }
+    
+  }
 
-//       }
+  var totalTd = document.createElement('td');
+  footerRow.appendChild(totalTd);
+  tfoot.appendChild(footerRow);
+  table.appendChild(tfoot);
+}
 
-//   var totalTd = document.createElement('td');
-//   footerRow.appendChild(totalTd);
-//   tfoot.appendChild(footerRow);
-//   table.appendChild(tfoot);
-// }
 //create store instances
 var pikeStore = new Store('1st and Pike', 23, 65, 6.3);
 pikeStore.render();
@@ -148,6 +153,15 @@ var capitolhillStore = new Store('Capitol Hill', 20, 38, 2.3);
 capitolhillStore.render();
 var alkiStore = new Store('Alki', 2, 16, 4.6);
 alkiStore.render();
+
+// create array of store arrays containing values for total cookie sales per hour
+addTableFooterRow([
+  pikeStore.getTotalCookieSalesPerHr(),
+  seatacStore.getTotalCookieSalesPerHr(),
+  seattlecentreStore.getTotalCookieSalesPerHr(),
+  capitolhillStore.getTotalCookieSalesPerHr(),
+  alkiStore.getTotalCookieSalesPerHr()
+]);
 
 // when a user submits the form, display that information in the table
 var formEl = document.getElementById('storeForm');

@@ -89,6 +89,7 @@ function getRandomCustPerHr() {
 }
 
 function getTotalCookieSalesPerHr() {
+  this.avgCookieSalesPerHr = [];
   for (var i = 0; i < this.totalHrs; i++) {
     this.avgCookieSalesPerHr.push(
       Math.floor(this.avgCookiePerCust * this.getRandomCustPerHr())
@@ -122,24 +123,21 @@ function addTableHeaderRow() {
 
 addTableHeaderRow();
 
-function addTableFooterRow(allStoreCookiesSalesPerHr) {
+function addTableFooterRow(allStoresCookiesSalesPerHr) {
   var table = document.querySelector('table');
   var tfoot = document.createElement('tfoot');
   var footerRow = document.createElement('tr');
-  totalsTD.textContent = this.
-  for (var i = 0; i < allStoreCookiesSalesPerHr.length; i++) {
-    var storeCookieSalesPerHr = allStoreCookiesSalesPerHr[i];
+  for (var i = 0; i < allStoresCookiesSalesPerHr[0].length; i++) {
     var total = 0;
-    for (var j = 0; j < .length; j++){
-      
+    for (var j = 0; j < allStoresCookiesSalesPerHr.length; j++){
+      total += allStoresCookiesSalesPerHr[j][i];
     }
-    
+    var totalTd = document.createElement('td');
+    totalTd.textContent = total;
+    footerRow.appendChild(totalTd);
   }
-
-  var totalTd = document.createElement('td');
-  footerRow.appendChild(totalTd);
-  tfoot.appendChild(footerRow);
   table.appendChild(tfoot);
+  tfoot.appendChild(footerRow);
 }
 
 //create store instances

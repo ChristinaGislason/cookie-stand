@@ -17,10 +17,9 @@ h2 {
   font-size: 25px;
   padding: px 0px;
 }
-
 #header {
-  border: 1px dashed #ddd;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+  border: 1px dotted #e6b7b7;
+  box-shadow: 0 0 0 3px #e6b7b7, 0 0 0 5px rgb(187, 121, 178), 0 0 0 10px #e6b7b7, 0 0 2px 10px #e6b7b7;
   margin: 50px;
 }
 

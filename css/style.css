@@ -107,6 +107,9 @@ p {
 } 
 
 .location {
+  padding: 60px;
+  line-height: 2em;
+  
   border: rgb(34, 34, 33);
   border-style: dotted dashed solid double;
   background-color: #c3c5c9;
@@ -115,4 +118,15 @@ p {
   width: 150px;
   height: 150px;
   padding: 70px 50px;
+}
+
+.events {
+  padding: 60px;
+  line-height: 2em;
+}
+.events h2{
+  font-family: 'Unica One', cursive;
+  font-size: 40px;
+  font-color: gold
+  padding: 25px 0px; 
 }

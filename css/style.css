@@ -1,26 +1,76 @@
-
-body {
-  background-color: rgb(252, 168, 126)
+.header {
+  padding: 70px; 
+  text-align: center; /* center the text */
+  background: #b19097; 
+  color: white; /* white text color */
+  background-image: url("assets/salmon.png");
 }
 
-h1 {
-  padding: 20px 0px;
+
+/* Increase the font size of the <h1> element */
+.header h1 {
   font-family: 'Unica One', cursive;
-  font-size: 55px;
+  font-size: 70px;
   text-align: center;
   font-style: bold;
 }
 
-h2 {
+.header h2 {
   text-align: center;
+  font-size: 30px;
   font-family: 'Economica', sans-serif;
-  font-size: 25px;
-  padding: px 0px;
+  padding: 20px 0px;
+  color: black;
 }
-#header {
-  border: 1px dotted #e6b7b7;
-  box-shadow: 0 0 0 3px #e6b7b7, 0 0 0 5px rgb(187, 121, 178), 0 0 0 10px #e6b7b7, 0 0 2px 10px #e6b7b7;
-  margin: 50px;
+
+img.large {
+  width: 700px;
+}
+
+img.small{
+  width: 214px;
+}
+
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden; /* Hide overflow */
+  background-color:#c3c5c9; /* Dark background color */
+  color: #B69F85;
+  font-family: 'Unica One', cursive;
+  font-size: 40px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.navlinks {
+  display: flex; 
+  justify-content: center; 
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left; /* Make sure that the links stay side-by-side */
+  display: block; /* Change the display to block, for responsive reasons (see below) */
+  color: white; /* White text color */
+  text-align: center; /* Center the text */
+  padding: 14px 20px; /* Add some padding */
+  text-decoration: none; /* Remove underline */
+}
+
+body {
+  background: #b19097; 
+}
+
+body.main-content {
+  background-color:#4c3e41;
+}
+
+table {
+  background: lightgray;
+}
+
+table thead td {
+  font-weight: bold;
 }
 
 td, th {
@@ -36,7 +86,58 @@ tr:hover {
   background-color: #bbb;
 }
 
-#allStores p {
-  font-family: 'Raleway', sans-serif;
+.ourstory {
+  padding: 60px;
+  line-height: 2em;
+}
 
+h2 {
+  font-family: 'Unica One', cursive;
+  font-size: 40px;
+  color: #b19097;
+  padding: 25px 0px; 
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 22px;
+  color: whitesmoke;
+
+}
+
+.locations {
+  padding: 60px;
+}
+
+.location {
+  line-height: 2em;
+  
+  border: rgb(34, 34, 33);
+  border-style: dotted dashed solid double;
+  background-color: #c3c5c9;
+  text-align: center;
+  padding: 30px
+}
+
+.location img.small {
+  width: 74px;
+}
+
+img.align-center {
+  margin: 0 auto;
+}
+
+.events {
+  padding: 60px;
+  line-height: 2em;
+}
+
+.events .events-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.events-images img {
+  padding: 10px;
 }

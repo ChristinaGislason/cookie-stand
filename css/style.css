@@ -1,10 +1,24 @@
 .header {
-  padding: 50px; 
+  padding: 100px; 
   text-align: center; /* center the text */
   background: #b19097; 
   color: white; /* white text color */
-
+  background-image: url("assets/salmon.png");
 }
+
+img.large {
+  width: 700px;
+}
+
+img.small{
+  width: 90px;
+}
+
+img.align-center {
+  display: block;
+  margin: 0px auto;}
+
+ 
 
 /* Increase the font size of the <h1> element */
 .header h1 {
@@ -16,19 +30,26 @@
 
 .header h2 {
   text-align: center;
+  font-size: 30px;
   font-family: 'Economica', sans-serif;
-  padding: px 0px;
+  padding: 20px 0px;
 }
 
 /* Style the top navigation bar */
 .navbar {
   overflow: hidden; /* Hide overflow */
   background-color:#c3c5c9; /* Dark background color */
+  color: #B69F85;
   font-family: 'Unica One', cursive;
   font-size: 40px;
-  text-align: justify;
+  text-align: center;
+  margin: 0 auto;
 }
 
+.navlinks {
+  display: flex; 
+  justify-content: center; 
+}
 
 /* Style the navigation bar links */
 .navbar a {
@@ -40,16 +61,6 @@
   text-decoration: none; /* Remove underline */
 }
 
-/* Right-aligned link */
-.navbar a.right {
-  float: right; /* Float a link to the right */
-}
-
-/* Change color on hover/mouse-over */
-.navbar a:hover {
-  background-color: #ddd; /* Grey background color */
-  color: black; /* Black text color */
-}
 
 body {
   background-color:#4c3e41;
@@ -69,7 +80,39 @@ tr:hover {
   background-color: #bbb;
 }
 
+.ourstory {
+  padding: 60px;
+  line-height: 2em;
+}
+
+.ourstory h2{
+  font-family: 'Unica One', cursive;
+  font-size: 40px;
+  font-color: gold
+  padding: 25px 0px; 
+}
+
 p {
   font-family: 'Raleway', sans-serif;
-  font-size: 25px;
+  font-size: 22px;
+  color: whitesmoke;
+
+}
+
+.locations h2 {
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Economica', sans-serif;
+  padding: 20px 0px;
+} 
+
+.location {
+  border: rgb(34, 34, 33);
+  border-style: dotted dashed solid double;
+  background-color: #c3c5c9;
+  text-align: center;
+  
+  width: 150px;
+  height: 150px;
+  padding: 70px 50px;
 }
